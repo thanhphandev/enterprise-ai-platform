@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: .
+    container_name: enterprise_ai_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./temp_uploads:/app/temp_uploads
+    env_file:
+      - .env
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  frontend:
+    build: .
+    container_name: enterprise_ai_frontend
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    # The frontend needs to know where the backend is. Since they are in the same docker network,
+    # it could use http://backend:8000. However, our Streamlit app hardcodes "http://localhost:8000"
+    # To fix this, we should really use an ENV var, but for now we map localhost in browser.
+    # Note: When Streamlit runs in Docker, if it uses requests to call backend, it should call http://backend:8000
+    # Let's override the environment variable for the frontend.
+    environment:
+      - API_BASE_URL=http://backend:8000/api
+    command: streamlit run admin_dashboard.py --server.address 0.0.0.0
+    depends_on:
+      - backend
+    restart: unless-stopped

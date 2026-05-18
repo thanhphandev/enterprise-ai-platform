@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Vector DB storage
+chroma_db/
+temp_uploads/
+
+# OS Files
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Tests
+.pytest_cache/
+automation_test/evaluation_report.csv

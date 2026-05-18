@@ -1,0 +1,38 @@
+﻿id,question,expected_context,bot_response,latency_sec,faithfulness_score,relevance_score,reasoning
+1,Hệ thống AI Agent này được viết bằng ngôn ngữ gì?,Python,"Hệ thống AI Agent mà bạn đang sử dụng được xây dựng chủ yếu bằng các ngôn ngữ sau:
+
+- **Python**: Đây là ngôn ngữ chính để phát triển các mô hình AI, xử lý ngôn ngữ tự nhiên (NLP), xây dựng backend và tích hợp các thư viện AI/ML.
+- **JavaScript/TypeScript**: Thường được sử dụng cho phần giao diện người dùng (frontend) hoặc các ứng dụng web tích hợp với AI Agent.
+- Ngoài ra, một số thành phần có thể sử dụng **Go**, **Java**, hoặc **Rust** cho các tác vụ hiệu năng cao hoặc tích hợp hệ thống, nhưng Python vẫn là ngôn ngữ chủ đạo.
+
+**Tóm lại:**  
+- Lõi AI và backend: **Python**  
+- Giao diện hoặc tích hợp web: **JavaScript/TypeScript** (nếu có)
+
+Nếu bạn muốn biết về ngôn ngữ lập trình của một hệ thống AI Agent cụ thể trong doanh nghiệp hoặc sản phẩm nào, hãy cung cấp thêm thông tin để mình hỗ trợ chi tiết hơn!",25.94,8,9,"The response is generally accurate about common languages used for AI Agents, especially Python and JavaScript, but it assumes details about the system without specific context. It is relevant and informative, but could clarify that the exact language depends on the specific AI Agent implementation."
+2,Hệ thống sử dụng Vector Database nào?,ChromaDB,"Hiện tại, bạn đang hỏi về loại Vector Database mà hệ thống AI Agent này sử dụng. Tuy nhiên, thông tin về Vector Database cụ thể (ví dụ: Pinecone, Weaviate, Milvus, Chroma, FAISS, v.v.) thường phụ thuộc vào từng sản phẩm, dự án hoặc doanh nghiệp triển khai hệ thống AI Agent.
+
+**Các Vector Database phổ biến thường được sử dụng trong hệ thống AI Agent:**
+
+- **Pinecone**: Dịch vụ vector database cloud, tối ưu cho tìm kiếm ngữ nghĩa và tích hợp AI.
+- **Weaviate**: Mã nguồn mở, hỗ trợ tìm kiếm vector, tích hợp nhiều mô hình AI.
+- **Milvus**: Hiệu năng cao, mã nguồn mở, phù hợp cho các hệ thống lớn.
+- **Chroma**: Đơn giản, dễ tích hợp, phù hợp cho các dự án nhỏ và vừa.
+- **FAISS** (Facebook AI Similarity Search): Thư viện mã nguồn mở, thường dùng cho các tác vụ tìm kiếm vector nội bộ.
+
+**Tóm lại:**  
+- Nếu bạn hỏi về hệ thống AI Agent nói chung, các lựa chọn phổ biến nhất là **Pinecone**, **Weaviate**, **Milvus**, **Chroma**, và **FAISS**.
+- Nếu bạn muốn biết chính xác hệ thống AI Agent này (hoặc của một công ty/dự án cụ thể) đang sử dụng Vector Database nào, vui lòng cung cấp thêm thông tin chi tiết để mình tra cứu hoặc xác nhận chính xác hơn.
+
+Bạn có muốn mình kiểm tra thông tin này trong tài liệu nội bộ hoặc hồ sơ kỹ thuật cụ thể không?",10.46,10,8,"The response is faithful as it does not hallucinate and clearly states that the specific Vector Database is not known without more context. It lists common options, which is relevant, but does not directly answer which one is used by the system in question, slightly lowering relevance."
+3,Frontend Admin được làm bằng công nghệ gì?,Streamlit,Tôi không tìm thấy thông tin này trong tài liệu nội bộ.,11.8,10,8,"The response is faithful as it does not hallucinate and admits lack of information. It is relevant because it addresses the question directly, but could be improved by suggesting where to find the information or clarifying what 'tài liệu nội bộ' refers to."
+4,Bầu trời màu gì?,Không có trong tài liệu,"**Bầu trời thường có màu xanh dương vào ban ngày.**
+
+- Vào ban ngày, ánh sáng Mặt Trời bị tán xạ bởi các phân tử không khí, khiến màu xanh dương là màu chủ đạo mà mắt người nhìn thấy.
+- Vào lúc bình minh hoặc hoàng hôn, bầu trời có thể chuyển sang màu cam, đỏ, hồng hoặc tím do ánh sáng phải đi qua lớp khí quyển dày hơn.
+- Ban đêm, bầu trời thường có màu đen hoặc xám, chỉ có ánh sáng của các vì sao hoặc Mặt Trăng.
+
+**Tóm lại:**
+- Ban ngày: Xanh dương
+- Bình minh/Hoàng hôn: Cam, đỏ, hồng, tím
+- Ban đêm: Đen hoặc xám",5.76,10,10,"The response is accurate and factually correct, explaining the different colors of the sky at various times. It directly answers the question and provides additional relevant context."
