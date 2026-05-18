@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 import logging
 
@@ -36,6 +37,9 @@ app.add_middleware(
 
 # Include the main API router
 app.include_router(api_router, prefix="/api", tags=["chat"])
+
+# Mount static files directory for the embeddable chat widget
+app.mount("/widget", StaticFiles(directory="widget"), name="widget")
 
 @app.on_event("startup")
 async def startup_event():
