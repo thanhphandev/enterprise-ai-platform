@@ -3,28 +3,26 @@
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-VectorDB-red.svg?style=for-the-badge&logo=google-cloud&logoColor=white)](https://github.com/chroma-core/chroma)
-[![Streamlit](https://img.shields.io/badge/Streamlit-Admin%20UI-FF4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Docker](https://img.shields.io/badge/Docker-Supported-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
-Một nền tảng **Enterprise AI Agent** toàn diện, hiệu năng cao và sở hữu khả năng chống chịu lỗi (**Fault-Tolerant**) vượt trội. Hệ thống được xây dựng trên hệ sinh thái Python hiện đại (FastAPI, LangChain, ChromaDB, Streamlit) và thiết kế tuân thủ nghiêm ngặt các tiêu chuẩn kiến trúc **Modular & Clean Architecture** cấp sản phẩm (Production-Grade).
+Một nền tảng **Backend AI Agent** chuẩn doanh nghiệp (Enterprise-Grade) được thiết kế tập trung vào hiệu năng cao, tính modul hóa và khả năng chống chịu lỗi vượt trội (**Fault-Tolerant**). Dự án đóng vai trò như một mảnh ghép portfolio kỹ thuật chuyên sâu biểu diễn toàn bộ luồng RAG cốt lõi, bộ định tuyến LLM chịu tải cao và hệ thống đánh giá QA tự động.
 
-Nền tảng này giải quyết triệt để các bài toán **Retrieval-Augmented Generation (RAG)** quy mô lớn, tích hợp bộ định tuyến LLM chịu tải cao tự động ứng biến sự cố (**High-Availability Failover Router**), đi kèm hệ thống kiểm thử QA tự động hóa chất lượng câu trả lời bằng mô hình trí tuệ nhân tạo độc lập (**LLM-as-a-judge**).
+Hệ thống được xây dựng trên hệ sinh thái Python hiện đại (FastAPI, LangChain, ChromaDB, SQLite) và thiết kế tuân thủ nghiêm ngặt các tiêu chuẩn kiến trúc **Modular & Clean Architecture** cấp sản phẩm.
 
 ---
 
 ## 🏗️ Kiến Trúc Hệ Thống (System Architecture)
 
-Nền tảng được thiết kế theo mô hình **Modular & Clean Architecture**, tách biệt hoàn toàn giữa các tầng nghiệp vụ để đảm bảo khả năng mở rộng (scalability) và dễ dàng bảo trì:
+Nền tảng được thiết kế theo mô hình **Clean Architecture**, phân tách rạch ròi giữa các tầng nghiệp vụ để đảm bảo khả năng bảo trì, mở rộng và kiểm thử độc lập:
 
 ```mermaid
 graph TD
-    %% Tầng Client %%
-    subgraph Client_Layer [Tầng Client & UI Interface]
+    %% Tầng Client UI %%
+    subgraph Client_Layer [Tầng Giao Diện Quản Trị]
         Dashboard["💻 Streamlit Admin Dashboard"]
-        Widget["🔌 Web Chat Widget (Pure JS)"]
     end
 
-    %% Tầng API & Gateway %%
+    %% Tầng API Gateway %%
     subgraph API_Layer [Tầng Gateway & API RESTful]
         Gateway["⚡ FastAPI Gateway Server"]
         UploadRoute["📂 /api/upload"]
@@ -42,7 +40,7 @@ graph TD
         LLMRouter["🔀 High Availability LLM Router"]
     end
 
-    %% Tầng Lưu Trữ & Backup %%
+    %% Tầng Lưu Trữ %%
     subgraph Storage_Layer [Tầng Hạ Tầng & Dữ Liệu]
         Chroma[("🗄️ Chroma Vector Store")]
         PrimaryLLM[("🔥 Primary LLM API (Port: 20128)")]
@@ -51,7 +49,6 @@ graph TD
 
     %% Các mối quan hệ %%
     Dashboard -->|REST API Calls| Gateway
-    Widget -->|SSE Real-time Streaming| Gateway
     Gateway --> UploadRoute
     Gateway --> ChatRoute
     Gateway --> HistoryRoute
@@ -82,7 +79,7 @@ graph TD
 
 ### 2. Đường Ống RAG Nâng Cao & Tối Ưu Hóa Tìm Kiếm (`app/core/rag/`)
 * **Hỗ trợ đa định dạng tài liệu:** Tự động phân tích và trích xuất dữ liệu từ các định dạng phức tạp như **PDF, Excel (`.xlsx`), Word (`.docx`), TXT**.
-* **Bơm ngữ cảnh thông minh (Dynamic Filename Context):** Hệ thống tự động quét và nạp danh sách tên file đang được index trong ChromaDB vào Prompt của AI Agent, giúp mô hình luôn tìm kiếm bằng từ khóa chính xác nhất (ví dụ: truy tìm chính xác CV của ứng viên thay vì đoán mò).
+* **Bơm ngữ cảnh thông minh (Dynamic Filename Context):** Hệ thống tự động quét và nạp danh sách tên file đang được index trong ChromaDB vào Prompt của AI Agent, giúp mô hình luôn tìm kiếm bằng từ khóa chính xác nhất.
 * **Độ sâu tìm kiếm tăng cường (`k=6`):** Tối ưu hóa số lượng phân đoạn truy xuất từ **3 lên 6 phân đoạn**, giúp thông tin cốt lõi trong các file ngắn không bao giờ bị dìm bởi các tệp lớn.
 * **Conversational Memory:** Quản lý lịch sử hội thoại dạng cửa sổ trượt (sliding window) lưu trữ bằng SQLite để lưu giữ trọn vẹn ngữ cảnh.
 
