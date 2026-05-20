@@ -186,6 +186,10 @@ Answer the user's question based on the web search results provided below.
             "likely to match the actual content of the documents. Do NOT generate generic or meta-descriptions like 'Tên của CV của người dùng' "
             "or 'tài liệu của người dùng'. Instead, write queries using exact keywords related to the indexed filenames or topics (e.g., "
             "'Phan Văn Thành Backend Developer', 'Phan Văn Thành SEO', 'Học tài liệu đi', 'chính sách nghỉ phép').\n"
+            "- When calling 'search_web', generate a clean, highly optimized, non-conversational keyword search query for DuckDuckGo. "
+            "Strip all conversational filler, question marks, polite phrasing, and long sentences. Use only 2-5 high-impact search keywords "
+            "(e.g., instead of 'diễn biến mới nhất về thị trường trí tuệ nhân tạo AI tuần này', generate 'thị trường AI mới nhất' or 'tin tức trí tuệ nhân tạo'; "
+            "instead of 'hãy cho tôi biết thời tiết Hà Nội ngày hôm nay thế nào', generate 'thời tiết Hà Nội').\n"
             "- Executive Formatting: Always format your direct replies and final answers beautifully in markdown, using clear bullet points, bold markers, and clean line breaks. Avoid raw, unformatted text blocks or childish emojis."
         )
         messages = [ChatMessage(role=Role.SYSTEM, content=system_prompt)]
@@ -235,7 +239,7 @@ Answer the user's question based on the web search results provided below.
                     "properties": {
                         "query": {
                             "type": "string",
-                            "description": "Từ khóa hoặc câu hỏi tối ưu hóa để tìm kiếm trên DuckDuckGo Search."
+                            "description": "Từ khóa tìm kiếm rút gọn, tối ưu hóa tối đa cho DuckDuckGo, không chứa câu hỏi hay từ ngữ hội thoại dài dòng (ví dụ: thay vì 'hãy tìm tin tức mới nhất về AI tuần này', chỉ truyền 'tin tức AI mới nhất' hoặc 'thị trường trí tuệ nhân tạo')."
                         }
                     },
                     "required": ["query"]
@@ -368,7 +372,7 @@ Answer the user's question based on the web search results provided below.
                     "properties": {
                         "query": {
                             "type": "string",
-                            "description": "Từ khóa hoặc câu hỏi tối ưu hóa để tìm kiếm trên DuckDuckGo Search."
+                            "description": "Từ khóa tìm kiếm rút gọn, tối ưu hóa tối đa cho DuckDuckGo, không chứa câu hỏi hay từ ngữ hội thoại dài dòng (ví dụ: thay vì 'hãy tìm tin tức mới nhất về AI tuần này', chỉ truyền 'tin tức AI mới nhất' hoặc 'thị trường trí tuệ nhân tạo')."
                         }
                     },
                     "required": ["query"]

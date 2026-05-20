@@ -21,6 +21,9 @@ class LLMSettings(BaseSettings):
     
     # Redis Cache (Optional)
     REDIS_URL: Optional[str] = "redis://localhost:6379/0"
+    
+    # Tavily Web Search
+    TAVILY_API_KEY: str = ""
 
     class Config:
         env_file = ".env"

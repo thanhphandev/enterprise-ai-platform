@@ -1,38 +1,198 @@
 ﻿id,question,expected_context,bot_response,latency_sec,faithfulness_score,relevance_score,reasoning
-1,Hệ thống AI Agent này được viết bằng ngôn ngữ gì?,Python,"Hệ thống AI Agent mà bạn đang sử dụng được xây dựng chủ yếu bằng các ngôn ngữ sau:
+1,Value Type và Reference Type trong C# khác nhau như thế nào?,"Value Type: Lưu trữ trực tiếp giá trị (VD: int, float, bool, struct, enum)... Reference Type: Lưu trữ tham chiếu... trỏ tới giá trị thực tế","### So sánh Value Type và Reference Type trong C#
 
-- **Python**: Đây là ngôn ngữ chính để phát triển các mô hình AI, xử lý ngôn ngữ tự nhiên (NLP), xây dựng backend và tích hợp các thư viện AI/ML.
-- **JavaScript/TypeScript**: Thường được sử dụng cho phần giao diện người dùng (frontend) hoặc các ứng dụng web tích hợp với AI Agent.
-- Ngoài ra, một số thành phần có thể sử dụng **Go**, **Java**, hoặc **Rust** cho các tác vụ hiệu năng cao hoặc tích hợp hệ thống, nhưng Python vẫn là ngôn ngữ chủ đạo.
+**Value Type** và **Reference Type** là hai loại dữ liệu cơ bản trong C#. Dưới đây là sự khác biệt chính giữa chúng:
+
+---
+
+#### Value Type
+
+- **Lưu trữ trực tiếp giá trị** (ví dụ: `int`, `float`, `bool`, `struct`, `enum`).
+- **Bộ nhớ** thường được cấp phát trên **Stack**.
+- **Tốc độ truy xuất** cực kỳ nhanh.
+
+---
+
+#### Reference Type
+
+- **Lưu trữ tham chiếu** (địa chỉ bộ nhớ) trỏ tới giá trị thực tế (ví dụ: `class`, `interface`, `delegate`, `string`, `object`).
+- **Bộ nhớ** được cấp phát trên **Heap**.
+
+---
+
+#### Boxing & Unboxing
+
+- **Boxing:** Ép kiểu Value Type sang Reference Type (ví dụ: `int i = 5; object o = i;`). Rất tốn hiệu năng vì CLR phải cấp phát bộ nhớ mới trên Heap và chép giá trị lên.
+- **Unboxing:** Ép kiểu ngược lại (ví dụ: `int j = (int)o;`).
+
+> **Lưu ý:** Cần hạn chế tối đa Boxing/Unboxing. Đây là lý do từ C# 2.0, Microsoft đã sinh ra **Generics** (ví dụ: `List<T>`) thay vì dùng `ArrayList` chứa `object`.
+
+---
 
 **Tóm lại:**  
-- Lõi AI và backend: **Python**  
-- Giao diện hoặc tích hợp web: **JavaScript/TypeScript** (nếu có)
+- **Value Type:** Lưu giá trị trực tiếp, cấp phát trên Stack, truy xuất nhanh.
+- **Reference Type:** Lưu địa chỉ tham chiếu, cấp phát trên Heap, truy xuất gián tiếp.",79.36,8,9,"The response accurately explains the main differences between Value Type and Reference Type in C#, including storage, memory allocation, and boxing/unboxing. However, it slightly overstates that Value Types are always on the stack and Reference Types always on the heap, which is not strictly true in all cases (e.g., Value Types can be boxed or be part of Reference Types). The answer is highly relevant and directly addresses the question."
+2,Boxing và Unboxing ảnh hưởng thế nào đến hiệu năng và làm sao để hạn chế?,Boxing: Ép kiểu Value Type sang Reference Type... Rất tốn hiệu năng... Hạn chế bằng Generics (ví dụ List<T>),"### Ảnh hưởng của Boxing và Unboxing đến hiệu năng
 
-Nếu bạn muốn biết về ngôn ngữ lập trình của một hệ thống AI Agent cụ thể trong doanh nghiệp hoặc sản phẩm nào, hãy cung cấp thêm thông tin để mình hỗ trợ chi tiết hơn!",25.94,8,9,"The response is generally accurate about common languages used for AI Agents, especially Python and JavaScript, but it assumes details about the system without specific context. It is relevant and informative, but could clarify that the exact language depends on the specific AI Agent implementation."
-2,Hệ thống sử dụng Vector Database nào?,ChromaDB,"Hiện tại, bạn đang hỏi về loại Vector Database mà hệ thống AI Agent này sử dụng. Tuy nhiên, thông tin về Vector Database cụ thể (ví dụ: Pinecone, Weaviate, Milvus, Chroma, FAISS, v.v.) thường phụ thuộc vào từng sản phẩm, dự án hoặc doanh nghiệp triển khai hệ thống AI Agent.
+- **Boxing** là quá trình chuyển một **Value Type** thành **Reference Type** (ví dụ: từ `int` sang `object`).
+- **Unboxing** là quá trình chuyển ngược lại từ **Reference Type** về **Value Type**.
 
-**Các Vector Database phổ biến thường được sử dụng trong hệ thống AI Agent:**
+#### Ảnh hưởng đến hiệu năng:
+- **Tốn tài nguyên bộ nhớ:** Mỗi lần boxing, hệ thống phải cấp phát vùng nhớ mới trên Heap và copy giá trị từ Stack lên Heap.
+- **Giảm tốc độ:** Boxing và unboxing là các thao tác tốn thời gian, đặc biệt khi thực hiện nhiều lần trong các vòng lặp lớn.
+- **Tăng áp lực cho Garbage Collector:** Nhiều đối tượng được boxing sẽ làm tăng số lượng object trên Heap, dẫn đến tần suất dọn rác (GC) cao hơn.
 
-- **Pinecone**: Dịch vụ vector database cloud, tối ưu cho tìm kiếm ngữ nghĩa và tích hợp AI.
-- **Weaviate**: Mã nguồn mở, hỗ trợ tìm kiếm vector, tích hợp nhiều mô hình AI.
-- **Milvus**: Hiệu năng cao, mã nguồn mở, phù hợp cho các hệ thống lớn.
-- **Chroma**: Đơn giản, dễ tích hợp, phù hợp cho các dự án nhỏ và vừa.
-- **FAISS** (Facebook AI Similarity Search): Thư viện mã nguồn mở, thường dùng cho các tác vụ tìm kiếm vector nội bộ.
+---
+
+### Cách hạn chế Boxing và Unboxing
+
+- **Sử dụng Generics:** Thay vì dùng các collection kiểu cũ như `ArrayList` (chỉ nhận `object`), hãy dùng `List<T>`, `Dictionary<TKey, TValue>`,... để lưu trữ đúng kiểu dữ liệu, tránh boxing.
+- **Tránh ép kiểu không cần thiết:** Không nên ép kiểu Value Type sang object nếu không thực sự cần thiết.
+- **Tận dụng các phương thức overload:** Sử dụng các phương thức đã overload cho Value Type thay vì truyền vào object.
+
+---
+
+#### Ví dụ minh họa
+
+```csharp
+// Có boxing
+ArrayList list = new ArrayList();
+int x = 10;
+list.Add(x); // Boxing xảy ra
+
+// Không boxing (dùng Generics)
+List<int> list2 = new List<int>();
+list2.Add(x); // Không boxing
+```
+
+---
+
+**Kết luận:**  
+- **Boxing/Unboxing** làm giảm hiệu năng do tốn bộ nhớ và thời gian xử lý.
+- **Giải pháp:** Luôn ưu tiên sử dụng **Generics** và hạn chế ép kiểu không cần thiết để tối ưu hiệu năng trong C#.",72.89,10,10,"The response accurately explains the concepts of boxing and unboxing, their impact on performance, and practical ways to avoid them, directly addressing the question with correct technical details and relevant examples."
+3,Phân biệt IEnumerable và IQueryable trong LINQ?,"IEnumerable<T>: Truy vấn bộ nhớ (in-memory), Client-side evaluation... IQueryable<T>: Truy vấn cơ sở dữ liệu (out-memory), Server-side evaluation","### Phân biệt **IEnumerable** và **IQueryable** trong LINQ
+
+#### 1. **IEnumerable**
+
+- **Không gian tên:** `System.Collections` hoặc `System.Collections.Generic`
+- **Hoạt động:** Thực hiện truy vấn **trong bộ nhớ (in-memory)**, nghĩa là dữ liệu đã được lấy về máy và các phép toán LINQ thực hiện trên tập dữ liệu này.
+- **Thích hợp:** Làm việc với **collection** như `List<T>`, `Array`, v.v.
+- **Thực thi:** **Deferred execution** (trì hoãn thực thi) nhưng chỉ áp dụng cho dữ liệu đã có trong bộ nhớ.
+- **Không tối ưu cho truy vấn dữ liệu lớn** từ database vì toàn bộ dữ liệu sẽ được load về trước khi xử lý.
+
+#### 2. **IQueryable**
+
+- **Không gian tên:** `System.Linq`
+- **Hoạt động:** Thực hiện truy vấn **ngoài bộ nhớ (out-of-memory)**, nghĩa là truy vấn được dịch sang **query gốc** (ví dụ: SQL) và thực thi trên nguồn dữ liệu (database, remote service, v.v.).
+- **Thích hợp:** Làm việc với các nguồn dữ liệu lớn như **Entity Framework, LINQ to SQL, NoSQL, v.v.**
+- **Thực thi:** **Deferred execution** và **tối ưu hóa truy vấn** (chỉ lấy về những gì cần thiết).
+- **Tối ưu hiệu năng** khi làm việc với database vì chỉ truy vấn và lấy về đúng dữ liệu cần thiết.
+
+---
+
+### **So sánh nhanh**
+
+| Đặc điểm         | IEnumerable                | IQueryable                    |
+|------------------|---------------------------|-------------------------------|
+| Không gian tên   | System.Collections        | System.Linq                   |
+| Xử lý dữ liệu    | Trong bộ nhớ (in-memory)  | Ngoài bộ nhớ (out-of-memory)  |
+| Nguồn dữ liệu    | Collection (List, Array)  | Database, Remote Service      |
+| Deferred Exec.   | Có                        | Có                            |
+| Tối ưu truy vấn  | Không                     | Có                            |
+| Chuyển đổi SQL   | Không                     | Có                            |
+
+---
+
+### **Ví dụ minh họa**
+
+```csharp
+// IEnumerable
+List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+IEnumerable<int> evenNumbers = numbers.Where(n => n % 2 == 0); // Lọc trong bộ nhớ
+
+// IQueryable (ví dụ với Entity Framework)
+IQueryable<User> users = dbContext.Users.Where(u => u.IsActive); // Lọc trên database, dịch sang SQL
+```
+
+---
 
 **Tóm lại:**  
-- Nếu bạn hỏi về hệ thống AI Agent nói chung, các lựa chọn phổ biến nhất là **Pinecone**, **Weaviate**, **Milvus**, **Chroma**, và **FAISS**.
-- Nếu bạn muốn biết chính xác hệ thống AI Agent này (hoặc của một công ty/dự án cụ thể) đang sử dụng Vector Database nào, vui lòng cung cấp thêm thông tin chi tiết để mình tra cứu hoặc xác nhận chính xác hơn.
+- **IEnumerable**: Dùng cho collection trong bộ nhớ, không tối ưu cho truy vấn database lớn.
+- **IQueryable**: Dùng cho truy vấn dữ liệu lớn, tối ưu hóa truy vấn, chỉ lấy về dữ liệu cần thiết từ nguồn ngoài (database, service).",15.71,10,10,"The response accurately and comprehensively distinguishes between IEnumerable and IQueryable in LINQ, covering namespaces, execution, use cases, and provides clear examples. It is both factually correct and directly answers the question."
+4,Lỗi N+1 Query trong EF Core là gì và cách khắc phục?,Chạy 1 query kéo về N phần tử cha + sau đó chạy N query nhỏ trong vòng lặp... Khắc phục: Dùng Eager Loading (Include()),"### Lỗi N+1 Query trong EF Core là gì?
 
-Bạn có muốn mình kiểm tra thông tin này trong tài liệu nội bộ hoặc hồ sơ kỹ thuật cụ thể không?",10.46,10,8,"The response is faithful as it does not hallucinate and clearly states that the specific Vector Database is not known without more context. It lists common options, which is relevant, but does not directly answer which one is used by the system in question, slightly lowering relevance."
-3,Frontend Admin được làm bằng công nghệ gì?,Streamlit,Tôi không tìm thấy thông tin này trong tài liệu nội bộ.,11.8,10,8,"The response is faithful as it does not hallucinate and admits lack of information. It is relevant because it addresses the question directly, but could be improved by suggesting where to find the information or clarifying what 'tài liệu nội bộ' refers to."
-4,Bầu trời màu gì?,Không có trong tài liệu,"**Bầu trời thường có màu xanh dương vào ban ngày.**
+- **Lỗi N+1 Query** xảy ra khi:
+  - Chạy **1 query** để lấy về **N phần tử cha**.
+  - Sau đó, trong vòng lặp, lại chạy **N query nhỏ** để lấy danh sách con của từng item.
+- Hậu quả:
+  - **Phá sập round-trips DB** (ngốn vô số kết nối).
+  - Làm giảm hiệu năng nghiêm trọng.
 
-- Vào ban ngày, ánh sáng Mặt Trời bị tán xạ bởi các phân tử không khí, khiến màu xanh dương là màu chủ đạo mà mắt người nhìn thấy.
-- Vào lúc bình minh hoặc hoàng hôn, bầu trời có thể chuyển sang màu cam, đỏ, hồng hoặc tím do ánh sáng phải đi qua lớp khí quyển dày hơn.
-- Ban đêm, bầu trời thường có màu đen hoặc xám, chỉ có ánh sáng của các vì sao hoặc Mặt Trăng.
+---
 
-**Tóm lại:**
-- Ban ngày: Xanh dương
-- Bình minh/Hoàng hôn: Cam, đỏ, hồng, tím
-- Ban đêm: Đen hoặc xám",5.76,10,10,"The response is accurate and factually correct, explaining the different colors of the sky at various times. It directly answers the question and provides additional relevant context."
+### Cách khắc phục lỗi N+1 Query
+
+- **Dùng Eager Loading** với `.Include()` để Entity Framework Core tự JOIN và lấy đủ dữ liệu chỉ trong **1 lần truy vấn**.
+- Khi `.Include()` quá nhiều bảng con chứa danh sách (1-N), nên dùng thêm **`.AsSplitQuery()`** để chia nhỏ câu JOIN lớn thành các query độc lập, giúp tăng hiệu suất.
+
+---
+
+#### Ví dụ khắc phục
+
+```csharp
+// Khắc phục N+1 Query bằng Eager Loading
+var users = dbContext.Users
+    .Include(u => u.Posts) // Lấy luôn danh sách Posts của từng User trong 1 query
+    .AsSplitQuery()        // (Tùy trường hợp) Tối ưu khi có nhiều bảng con
+    .ToList();
+```
+
+---
+
+**Tóm lại:**  
+- **Lỗi N+1 Query** là do truy vấn lặp lại quá nhiều lần vào DB cho dữ liệu liên quan.
+- **Khắc phục:** Sử dụng `.Include()` (Eager Loading) và cân nhắc `.AsSplitQuery()` trong EF Core.",87.42,8,9,"The response accurately describes the N+1 query problem in EF Core and provides correct solutions using Include and AsSplitQuery. However, some minor technical inaccuracies exist, such as the explanation of AsSplitQuery, which is not always about performance but query semantics. The answer is highly relevant and directly addresses the question."
+5,Khi nào nên chọn cơ sở dữ liệu NoSQL (MongoDB) thay vì SQL?,"Chọn NoSQL (MongoDB): Khi dữ liệu thay đổi cấu trúc liên tục (Schema-less), cần tốc độ Write/Insert cực nhanh, dễ dàng mở rộng theo chiều ngang","### Khi nào nên chọn cơ sở dữ liệu **NoSQL (MongoDB)** thay vì **SQL**?
+
+#### Chọn **NoSQL (MongoDB)** khi:
+
+- **Dữ liệu thay đổi cấu trúc liên tục (Schema-less):**
+  - Không cố định số cột/thuộc tính, dữ liệu linh hoạt, dễ thay đổi.
+
+- **Cần tốc độ Write/Insert cực nhanh, số lượng lớn:**
+  - Phù hợp với các hệ thống ghi nhận log, tracking, analytics, review, comment, v.v.
+
+- **Dễ dàng mở rộng theo chiều ngang (Horizontal Scaling / Sharding):**
+  - Khi hệ thống cần mở rộng quy mô lớn, phân tán dữ liệu trên nhiều server.
+
+- **Không yêu cầu tính toàn vẹn dữ liệu cực cao (ACID) cho từng giao dịch:**
+  - Độ ưu tiên toàn vẹn không mang tính chất rủi ro sinh tử.
+
+- **Ví dụ thực tế:**
+  - Lưu trữ file log (AIController), tracking lịch sử truy cập, analytics, danh sách comment/review.
+
+---
+
+**Tóm lại:**  
+Nên chọn **MongoDB** khi cần lưu trữ dữ liệu linh hoạt, tốc độ ghi nhanh, dễ mở rộng, và không yêu cầu tính toàn vẹn dữ liệu nghiêm ngặt như các hệ thống tài chính.",66.41,9,9,"The response accurately lists common scenarios where NoSQL (MongoDB) is preferred over SQL, such as schema flexibility, high write throughput, and horizontal scaling. It also notes the trade-off regarding ACID compliance. However, it could mention more about specific use cases or limitations, and clarify that some NoSQL databases can support certain ACID properties, so a point is deducted for slight oversimplification."
+6,Tại sao không nên dùng GUID ngẫu nhiên làm Khóa chính (Clustered Index) trong SQL Server?,"GUID sinh ra lộn xộn, gây ra hiện tượng Page Split (xé trang ổ cứng), làm tụt giảm hiệu năng ghi thảm hại và gây phân mảnh DB (Fragmentation)","### Lý do không nên dùng **GUID ngẫu nhiên** làm **Khóa chính (Clustered Index)** trong SQL Server
+
+- **Clustered Index** sắp xếp dữ liệu vật lý trên ổ cứng theo thứ tự của khóa chính.
+- **GUID ngẫu nhiên** sinh ra giá trị lộn xộn, không theo thứ tự tăng dần.
+
+#### Hậu quả khi dùng GUID ngẫu nhiên:
+- Khi **Insert** bản ghi mới, database phải chèn ép vào giữa các bản ghi cũ.
+- Dẫn đến hiện tượng **Page Split** (xé trang ổ cứng), làm giảm hiệu năng ghi nghiêm trọng.
+- Gây ra **phân mảnh database (Fragmentation)**, ảnh hưởng xấu đến hiệu suất tổng thể.
+
+---
+
+#### Giải pháp khuyến nghị:
+- Dùng **Id kiểu INT/BIGINT tự tăng** làm Clustered Index.
+- Nếu cần bảo mật/ẩn ID, tạo thêm 1 cột GUID làm **Non-Clustered Index** để giao tiếp với bên ngoài API.
+- Hoặc dùng **Sequential GUID** (ví dụ: NewId trong SQL Server) thay vì GUID ngẫu nhiên.
+
+---
+
+**Tóm lại:**  
+Không nên dùng GUID ngẫu nhiên làm Clustered Index vì gây xé trang, phân mảnh và giảm hiệu năng ghi của database.",98.03,9,10,"The response accurately explains why random GUIDs are not recommended for clustered indexes in SQL Server, mentioning page splits, fragmentation, and performance issues. It also provides relevant alternatives. Minor deduction for a slight inaccuracy: 'NewId' generates random GUIDs, not sequential; 'NEWSEQUENTIALID()' is the correct function for sequential GUIDs."
