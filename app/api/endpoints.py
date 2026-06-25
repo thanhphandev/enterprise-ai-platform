@@ -145,8 +145,10 @@ async def clear_all_documents(
     """
     try:
         collection = rag.vector_store.vector_store._collection
-        # An empty delete() call without ids will clear all documents in this collection
-        collection.delete()
+        results = collection.get(include=[])
+        ids = results.get("ids", [])
+        if ids:
+            collection.delete(ids=ids)
         return {"status": "success", "message": "All documents cleared from VectorDB"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
